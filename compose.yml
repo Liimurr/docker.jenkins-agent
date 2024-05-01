@@ -1,0 +1,18 @@
+services:
+  jenkins-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - JENKINS_PUBLIC_KEY=${JENKINS_PUBLIC_KEY}
+        - JENKINS_SSH_PORT=${JENKINS_SSH_PORT}
+        - UBUNTU_VERSION=${UBUNTU_VERSION}
+        - VMWARE_SERIAL_NUMBER=${VMWARE_SERIAL_NUMBER}
+    command: /usr/sbin/init
+    container_name: jenkins-agent
+    image: jenkins-agent-image
+    restart: on-failure
+    stdin_open: true
+    tty: true
+    privileged: true
+    network_mode: host
