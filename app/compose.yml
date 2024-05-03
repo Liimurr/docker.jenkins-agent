@@ -1,0 +1,4 @@
+services:
+  cmake:
+    context: .
+    dockerfile: Dockerfile

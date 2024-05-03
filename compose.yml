@@ -7,8 +7,6 @@ services:
         - JENKINS_PUBLIC_KEY=${JENKINS_PUBLIC_KEY}
         - JENKINS_SSH_PORT=${JENKINS_SSH_PORT}
         - UBUNTU_VERSION=${UBUNTU_VERSION}
-        - VMWARE_SERIAL_NUMBER=${VMWARE_SERIAL_NUMBER}
-    command: /usr/sbin/init
     container_name: jenkins-agent
     image: jenkins-agent-image
     restart: on-failure
@@ -16,3 +14,5 @@ services:
     tty: true
     privileged: true
     network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

@@ -33,8 +33,9 @@ RUN sed -i '/^UseDNS /c\UseDNS no' /etc/ssh/sshd_config || echo 'UseDNS no' >> /
 RUN sed -i "s/#Port 22/Port $JENKINS_SSH_PORT/" /etc/ssh/sshd_config
 RUN echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config
 # add java to path
-RUN echo "JAVA_HOME=/opt/java/openjdk" >> /etc/environment
-RUN echo "PATH=/opt/java/openjdk/bin:$PATH" >> /etc/environment
+ENV JAVA_HOME=/opt/java/openjdk
+RUN echo "JAVA_HOME=${JAVA_HOME}" >> /etc/environment
+RUN sed -i "/^PATH=/c\\PATH=${JAVA_HOME}/bin:$PATH" /etc/environment
 
 # install powershell
 RUN apt-get install -y apt-transport-https software-properties-common
